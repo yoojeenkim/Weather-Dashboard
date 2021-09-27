@@ -1,0 +1,12 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+header {
+    height: 100px;
+}
+
+#searchBtn {
+    background-color: #5aa2e9;
+    color: #fff;
+}
