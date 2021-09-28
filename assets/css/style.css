@@ -6,6 +6,25 @@ header {
     height: 100px;
 }
 
+img {
+    width: 35px;
+    height: 35px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.date {
+    font-size: 35px;
+    color: #fff;
+}
+
+.temp,
+.wind,
+.humidity {
+    font-size: 14px;
+    color: #fff;
+}
+
 #searchBtn {
     background-color: #5aa2e9;
     color: #fff;
