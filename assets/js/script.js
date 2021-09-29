@@ -1,10 +1,10 @@
 var APIKey = "dd11198ebdc5895309b017802e885bda";
 var searchBtn = $("#searchBtn");
 var historyBtn = $(".historyBtn");
+var citiesSearched = [];
 
 //search for that city using fetch(requesturl) to grab lat and lon, which then puts it through another fetch() to grab actual current and daily forecast
 function getWeather() {
-
     var city = localStorage.getItem("city");
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
     
@@ -46,7 +46,18 @@ function getOneCall () {
 
 function postCurrentWeather() {
     var city = localStorage.getItem("city");
-    console.log(city);
+
+    var forecast = JSON.parse(localStorage.getItem("forecast"));
+    console.log(forecast);
+
+    var unixDate = forecast[0].dt;
+    var dateObject = new Date(unixDate*1000);
+    var date = dateObject.toLocaleDateString();
+
+    $("#currentdate").text(city + " " + date);
+    $("#currenttemp").text("Temp: " + forecast[0].temp.day + "°F");
+    $("#currentwind").text("Wind: " + forecast[0].wind_speed + "MPH");
+    $("#currenthumidity").text("Humidity: " + forecast[0].humidity + "%");
 
     postUV();
 }
@@ -82,18 +93,34 @@ function postForecast() {
     })
 }
 
+function searchHistory() {
+
+    var citiesSearched = localStorage.getItem("citiesSearched");
+    console.log(citiesSearched);
+
+    for (var i=0; i < citiesSearched.length; i++) {
+        var tempBtn = document.createElement('button');
+        tempBtn.setAttribute("class", "col-12 historyBtn");
+        tempBtn.setAttribute("id", citiesSearched[i]);
+        $("#searchHistory").append(tempBtn).text(citiesSearched[i]);
+    }
+}
+
 //two event listeners
 //submit button where user input city  into the search bar and then hits enter or search, it will grab the city value and store it
 //1. fetch weather data and return the 7 day forecast
 //2. and once that city id is stored into local storage, it will dynamically create a link/button that will associate an id with that city name AND checks search bar to clear any duplicates that might appear in the list
-searchBtn.on("click", function() {
+searchBtn.on("click", function(event) {
+    event.preventDefault();
     var city = $(this).siblings("#inputSearch").val();
-
     if (city !== null) {
         localStorage.setItem("city",city);
+        citiesSearched.push(city);
+        localStorage.setItem("citiesSearched",citiesSearched);
     }
 
     getWeather();
+    searchHistory();
 })
 
 //1. search history button with unique city ids when clicked will
@@ -102,5 +129,6 @@ searchBtn.on("click", function() {
 //     var city = $(this).attr("city");
 
 //     localStorage.setItem(city);
-//     fetchWeather();
-// })
+//     getWeather();
+//     searchHistory();
+//})

@@ -13,6 +13,13 @@ img {
     margin-left: 10px;
 }
 
+.card {
+    width: 13vw;
+    height: 35vh;
+    background-color: #33475a;
+    padding: 5px;
+}
+
 .date {
     font-size: 35px;
     color: #fff;
@@ -23,6 +30,11 @@ img {
 .humidity {
     font-size: 14px;
     color: #fff;
+}
+
+#currentdate {
+    font-weight: bolder;
+    padding-bottom: 10px;
 }
 
 #searchBtn {
