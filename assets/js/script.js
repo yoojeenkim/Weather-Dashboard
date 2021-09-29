@@ -53,8 +53,11 @@ function postCurrentWeather() {
     var unixDate = forecast[0].dt;
     var dateObject = new Date(unixDate*1000);
     var date = dateObject.toLocaleDateString();
+    var iconcode = forecast[0].weather[0].icon;
+    var iconurl = "http://openweathermap.org/img/wn/" + iconcode + "@2x.png";
 
     $("#currentdate").text(city + " " + date);
+    $("#currenticon").attr("src", iconurl);
     $("#currenttemp").text("Temp: " + forecast[0].temp.day + "°F");
     $("#currentwind").text("Wind: " + forecast[0].wind_speed + "MPH");
     $("#currenthumidity").text("Humidity: " + forecast[0].humidity + "%");
@@ -80,6 +83,8 @@ function postForecast() {
         var unixDate = forecast[i+1].dt;
         var dateObject = new Date(unixDate*1000);
         var date = dateObject.toLocaleDateString();
+        var iconcode = forecast[i+1].weather[0].icon;
+        var iconurl = "http://openweathermap.org/img/wn/" + iconcode + "@2x.png";
         var temp = forecast[i+1].temp.day;
         var wind = forecast[i+1].wind_speed;
         var humidity = forecast[i+1].humidity;
@@ -87,6 +92,7 @@ function postForecast() {
         console.log(date);
         
         $(this).children(".date").text(date);
+        $(this).children(".iconForecast").attr("src", iconurl);
         $(this).children(".temp").text("Temp: " + temp + "°F");
         $(this).children(".wind").text("Wind: " + wind + "MPH");
         $(this).children(".humidity").text("Humidity: " + humidity + "%");
@@ -94,29 +100,34 @@ function postForecast() {
 }
 
 function searchHistory() {
-
-    var citiesSearched = localStorage.getItem("citiesSearched");
+    var citiesSearched = JSON.parse(localStorage.getItem("citiesSearched"));
     console.log(citiesSearched);
 
-    for (var i=0; i < citiesSearched.length; i++) {
+    for (i=0; i < citiesSearched.length; i++) {
         var tempBtn = document.createElement('button');
+        tempBtn.textContent = (citiesSearched[i]);
+        $("#searchHistory").append(tempBtn);
         tempBtn.setAttribute("class", "col-12 historyBtn");
         tempBtn.setAttribute("id", citiesSearched[i]);
-        $("#searchHistory").append(tempBtn).text(citiesSearched[i]);
+        tempBtn.setAttribute("style", "padding-top: 5px; padding-bottom: 5px, margin-top: 10px, margin-bottom: 10px;")
     }
 }
 
+function clearSearchHistory() {
+    $(".historyBtn").remove();
+}
 //two event listeners
 //submit button where user input city  into the search bar and then hits enter or search, it will grab the city value and store it
 //1. fetch weather data and return the 7 day forecast
 //2. and once that city id is stored into local storage, it will dynamically create a link/button that will associate an id with that city name AND checks search bar to clear any duplicates that might appear in the list
 searchBtn.on("click", function(event) {
     event.preventDefault();
+    clearSearchHistory();
     var city = $(this).siblings("#inputSearch").val();
     if (city !== null) {
         localStorage.setItem("city",city);
         citiesSearched.push(city);
-        localStorage.setItem("citiesSearched",citiesSearched);
+        localStorage.setItem("citiesSearched",JSON.stringify(citiesSearched));
     }
 
     getWeather();
@@ -125,10 +136,16 @@ searchBtn.on("click", function(event) {
 
 //1. search history button with unique city ids when clicked will
 //2. fetch weather data and return the 7 day forecast
-// historyBtn.on("click", function() {
-//     var city = $(this).attr("city");
+ $(document).on("click", "#searchHistory .historyBtn", function() {
+     clearSearchHistory();
 
-//     localStorage.setItem(city);
-//     getWeather();
-//     searchHistory();
-//})
+     var city = $(this).attr("id");
+     console.log(city);
+
+     if (city !== null) {
+        localStorage.setItem("city",city);
+     }
+
+     getWeather();
+     searchHistory();
+})
