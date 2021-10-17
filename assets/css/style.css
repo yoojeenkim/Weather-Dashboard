@@ -9,10 +9,10 @@ body {
 
 header {
     height: 75px;
-    background: #20084a;
-    background: -webkit-linear-gradient(right, #20084a, #3463bc);
-    background: -moz-linear-gradient(right, #20084a, #3463bd);
-    background: linear-gradient(to left, #20084a, #3463bd);
+    background: #DAE2F8;
+    background: -webkit-linear-gradient(right, #DAE2F8, #D6A4A4 );
+    background: -moz-linear-gradient(right, #DAE2F8, #D6A4A4 );
+    background: linear-gradient(to left, #DAE2F8, #D6A4A4 );
 }
 
 img {
