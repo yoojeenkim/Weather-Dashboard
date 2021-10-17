@@ -1,9 +1,18 @@
+* {
+    line-height: 1.15;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
+    margin: 0;
 }
 
 header {
-    height: 100px;
+    height: 75px;
+    background: #20084a;
+    background: -webkit-linear-gradient(right, #20084a, #3463bc);
+    background: -moz-linear-gradient(right, #20084a, #3463bd);
+    background: linear-gradient(to left, #20084a, #3463bd);
 }
 
 img {
