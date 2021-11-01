@@ -1,8 +1,11 @@
 const APIKey = "dd11198ebdc5895309b017802e885bda";
 const citiesSearched = [];
 
-const searchBtn = $("#search-btn");
-const searchHistory = document.querySelector('#search-history');
+const searchForm = document.querySelector('#search-form');
+const searchInput = document.querySelector('#input-search');
+const todayContainer = document.querySelector('#today');
+const forecastContainer = document.querySelector('#forecast');
+const searchHistoryContainer = document.querySelector('#search-history');
 
 
 //search for that city using fetch(requesturl) to grab lat and lon, which then puts it through another fetch() to grab actual current and daily forecast
