@@ -1,7 +1,9 @@
 const APIKey = "dd11198ebdc5895309b017802e885bda";
-var searchBtn = $("#searchBtn");
-var historyBtn = $(".historyBtn");
-var citiesSearched = [];
+const citiesSearched = [];
+
+const searchBtn = $("#search-btn");
+const searchHistory = document.querySelector('#search-history');
+
 
 //search for that city using fetch(requesturl) to grab lat and lon, which then puts it through another fetch() to grab actual current and daily forecast
 function getWeather() {
@@ -99,17 +101,15 @@ function postForecast() {
     })
 }
 
-function searchHistory() {
-    var citiesSearched = JSON.parse(localStorage.getItem("citiesSearched"));
-    console.log(citiesSearched);
+function renderSearchHistory() {
+    searchHistory.innerHTML = '';
 
-    for (i=0; i < citiesSearched.length; i++) {
+    for (var i = citiesSearched.length - 1; i >= 0; i--) {
         var tempBtn = document.createElement('button');
         tempBtn.textContent = (citiesSearched[i]);
-        $("#searchHistory").append(tempBtn);
-        tempBtn.setAttribute("class", "col-12 historyBtn");
+        tempBtn.classList.add('history-btn');
         tempBtn.setAttribute("id", citiesSearched[i]);
-        tempBtn.setAttribute("style", "padding-top: 5px; padding-bottom: 5px, margin-top: 10px, margin-bottom: 10px;")
+        searchHistory.append(tempBtn);
     }
 }
 

@@ -21,21 +21,17 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3">
-                <div class="row">
-                    <div class="col d-flex flex-column" style="margin-top: 10px; margin-bottom: 10px; padding-bottom: 20px;">
-                        <h3 style="font-weight: bolder;">Search for a city:</h3>
-                        <input type=text" id="inputSearch" style="margin-top: 5px; margin-bottom: 10px;">
-                        <button class="btn" type="button" id="searchBtn">Search</button>
-                    </div>
-                </div>
-                <div class="row d-flex flex-column-reverse" style="margin-top: 10px;">
-                    <ul id=searchHistory></ul>
-                </div>
+                <h2>Search for a city:</h2>
+                <form>
+                    <input type=text" id="input-search">
+                    <button class="btn" type="button" id="search-btn">Search</button>
+                </form>
+                <div class="list-history" id="search-history"></ul>
             </div>
 
             <div class="col-lg-9">
-                <div class="row " style="height: 25vh; margin-top: 15px; margin-right: 5px; margin-left: 5px; border: 1px solid black;"></div>
-                <div class="row" style="height: 37vh; margin-top: 15px; margin-right: 5px; margin-left: 5px;"></div></div>
+                <div class="row" id="today"></div>
+                <div class="row" id ="forecast"></div></div>
             </div>
         </div>
     </div>
