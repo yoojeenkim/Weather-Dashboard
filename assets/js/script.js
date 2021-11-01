@@ -1,4 +1,4 @@
-var APIKey = "dd11198ebdc5895309b017802e885bda";
+const APIKey = "dd11198ebdc5895309b017802e885bda";
 var searchBtn = $("#searchBtn");
 var historyBtn = $(".historyBtn");
 var citiesSearched = [];
